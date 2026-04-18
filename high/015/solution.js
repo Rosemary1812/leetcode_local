@@ -21,6 +21,51 @@
 //
 // ---------------------------------------------------------
 
-function methodName(...) {
-    // TODO: implement
+function threeSum(nums) {
+    const res=[],len=nums.length;
+    nums.sort((a,b)=>a-b);
+
+    for(let i=0;i<len;i++){
+        let left=i+1,right=len-1,iNum=nums[i];
+        if(i>0&&nums[i]===nums[i-1]){
+            continue;
+        }
+
+        if(iNum>0){
+            break;
+        }
+
+        while(left<right){
+            let lNum=nums[left],rNum=nums[right],sum=iNum+rNum+lNum;
+
+            if(sum<0){
+                left++;
+            }else if(sum>0){
+                right--;
+            }else{
+                res.push([iNum,lNum,rNum]);
+                while(left<right&&nums[left]===nums[left+1]){
+                    left++;
+                }
+                while(left<right&&nums[right]===nums[right-1]){
+                    right--;    
+                }
+                //!while这一块的逻辑要注意
+                //!如果写成left++ right-- 会跳过一些重复的解
+                // while(left<right&&nums[left]===nums[left-1]){
+                //     left++;
+                // }
+                // while(left<right&&nums[right]===nums[right+1]){
+                //     right--;    
+                // }
+                //!会漏掉一些情况
+                left++;
+                right--;
+            }
+        }
+    }
+    return res;
 }
+
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+// console

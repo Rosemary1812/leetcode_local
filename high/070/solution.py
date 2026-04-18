@@ -4,16 +4,16 @@
 # 来源: https://leetcode.cn/problems/climbing-stairs/description/
 #
 # 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
-# 
+#
 # 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶？
-# 
+#
 # 示例 1：
 # 输入：n = 2
 # 输出：2
 # 解释：有两种方法可以爬到楼顶。
 # 1. 1 阶 + 1 阶
 # 2. 2 阶
-# 
+#
 # 示例 2：
 # 输入：n = 3
 # 输出：3
@@ -23,8 +23,12 @@
 # 3. 2 阶 + 1 阶
 #
 # ---------------------------------------------------------
+def stair(n):
+    pre, cur = 1, 1
+    for _ in range(2, n + 1):
+        pre, cur = cur, pre + cur
+    return cur
 
-class Solution:
-    def method_name(self, ...):
-        # TODO: implement
-        pass
+
+print(stair(2))
+print(stair(392))

@@ -12,7 +12,47 @@
 #
 # ---------------------------------------------------------
 
-class Solution:
-    def method_name(self, ...):
-        # TODO: implement
-        pass
+
+class ListNode:
+    def __init__(self,val=0,next=None) :
+        self.val=val
+        self.next=next
+
+
+def merge(l1,l2):
+    dummy=ListNode(0)
+    cur=dummy
+
+    while l1 and l2:
+        if l1.val<=l2.val:
+            cur.next=l1
+            l1=l1.next
+        else:
+            cur.next=l2
+            l2=l2.next
+        cur=cur.next
+    cur.next=l1 if l1 else l2
+    return dummy.next
+
+def buildList(arr):
+    dummy=ListNode(0)
+    cur=dummy
+    for val in arr:
+        cur.next=ListNode(val)
+        cur=cur.next
+    return dummy.next
+
+def ListToArray(head):
+    result=[]
+    while head:
+        result.append(head.val)
+        head=head.next
+    return result
+
+
+print(ListToArray(merge(buildList([1,2,4]),buildList([1,3,4]))))
+print(ListToArray(merge(buildList([]),buildList([]))))
+print(ListToArray(merge(buildList([]),buildList([0]))))
+print(ListToArray(merge(buildList([1]),buildList([2]))))
+print(ListToArray(merge(buildList([1,1,1]),buildList([1,1,1]))))
+

@@ -12,6 +12,46 @@
 //
 // ---------------------------------------------------------
 
-function methodName(...) {
-    // TODO: implement
+function mergeTwoLists(l1, l2) {
+    const dummy = { val: 0, next: null };
+    let cur = dummy;
+
+    while (l1 && l2) {
+        if (l1.val <= l2.val) {
+            cur.next = l1;
+            l1 = l1.next;
+        } else {
+            cur.next = l2;
+            l2 = l2.next;
+        }
+        cur = cur.next;
+    }
+
+    cur.next = l1 || l2;
+    return dummy.next;
 }
+
+function buildList(arr) {
+    const dummy = { val: 0, next: null };
+    let cur = dummy;
+    for (const val of arr) {
+        cur.next = { val, next: null };
+        cur = cur.next;
+    }
+    return dummy.next;
+}
+
+function listToArray(head) {
+    const result = [];
+    while (head) {
+        result.push(head.val);
+        head = head.next;
+    }
+    return result;
+}
+
+console.log(listToArray(mergeTwoLists(buildList([1, 2, 4]), buildList([1, 3, 4]))));
+console.log(listToArray(mergeTwoLists(buildList([]), buildList([]))));
+console.log(listToArray(mergeTwoLists(buildList([]), buildList([0]))));
+console.log(listToArray(mergeTwoLists(buildList([1]), buildList([2]))));
+console.log(listToArray(mergeTwoLists(buildList([1, 1, 1]), buildList([1, 1, 1]))));

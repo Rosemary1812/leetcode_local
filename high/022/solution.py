@@ -18,7 +18,27 @@
 #
 # ---------------------------------------------------------
 
-class Solution:
-    def method_name(self, ...):
-        # TODO: implement
-        pass
+
+def generateParenthesis(n):
+    ans = []
+    path = []
+    def dfs(left, right):
+        if right == n:
+            ans.append(''.join(path))
+            return
+        
+        if left < n:
+            path.append('(')
+            dfs(left + 1, right)
+            path.pop()
+        
+        if right < left:
+            path.append(')')
+            dfs(left, right + 1)
+            path.pop()
+    
+    dfs(0, 0)
+    return ans
+print(generateParenthesis(1))   # ["()"]
+print(generateParenthesis(2))   # ["(())", "()()"]
+print(generateParenthesis(3))   # ["((()))", "(()())", "(())()", "()(())", "()()()"]

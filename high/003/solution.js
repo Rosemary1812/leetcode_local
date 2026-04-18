@@ -24,6 +24,30 @@
 //
 // ---------------------------------------------------------
 
-function methodName(...) {
+function maxStr(str) {
     // TODO: implement
+    let left=0;
+    let maxLen=0;
+    const map=new Map();
+
+    for(let right=0;right<str.length;right++){
+        const char=str[right];
+        map.set(char,(map.get(char)||0)+1);
+
+        while(map.get(char)>1){
+            const leftChar=str[left];   
+            map.set(leftChar,map.get(leftChar)-1);
+            left++;
+        }
+        maxLen=Math.max(maxLen,right-left+1);
+    }
+
+    return maxLen;
 }
+
+console.log(maxStr("abcabcbb"));
+console.log(maxStr("bbbbb"));
+console.log(maxStr("pwwkew"));
+
+
+
