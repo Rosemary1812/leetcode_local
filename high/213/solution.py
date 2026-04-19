@@ -4,26 +4,39 @@
 # 来源: https://leetcode.cn/problems/house-robber-ii/description/
 #
 # 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有现金。这个地区所有房屋都围成一圈，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻房屋装有防盗系统，如果两间相邻的房屋在同一晚上被闯入，系统会自动报警。
-# 
+#
 # 给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，今晚能够偷窃到的最高金额。
-# 
+#
 # 示例 1：
 # 输入：nums = [2,3,2]
 # 输出：3
 # 解释：你不能先偷窃房屋 1（金额 = 2），然后偷窃房屋 3（金额 = 2），因为它们是相邻的。
-# 
+#
 # 示例 2：
 # 输入：nums = [1,2,3,1]
 # 输出：4
 # 解释：你可以先偷窃房屋 1（金额 = 1）和房屋 3（金额 = 3），偷窃总金额 4。
-# 
+#
 # 示例 3：
 # 输入：nums = [1,2,3]
 # 输出：3
 #
 # ---------------------------------------------------------
+def rob(nums):
+    f0 = f1 = 0
+    for x in nums:
+        f0, f1 = f1, max(f0 + x, f1)
+    return f1
 
-class Solution:
-    def method_name(self, ...):
-        # TODO: implement
-        pass
+
+# 环形主要区分2种情况 0偷 0不偷
+def robfinal(nums):
+    n = len(nums)
+    if n == 1:
+        return nums[0]
+    return max(nums[0] + rob(nums[2:-1]), rob(nums[1:]))
+
+
+print(robfinal([2, 3, 2]))
+print(robfinal([1, 2, 3, 1]))
+print(robfinal([1, 2, 3]))
