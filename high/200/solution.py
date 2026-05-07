@@ -39,7 +39,8 @@
 # grid[i][j] 的值为 '0' 或 '1'
 #
 # ---------------------------------------------------------
-def numIslands(grid):
+#
+def numIsIsland(grid):
     m, n = len(grid), len(grid[0])
 
     def dfs(i, j):
@@ -52,7 +53,6 @@ def numIslands(grid):
         dfs(i - 1, j)
 
     ans = 0
-    # for 索引，值 in 数组
     for i, row in enumerate(grid):
         for j, c in enumerate(row):
             if c == "1":
@@ -67,7 +67,7 @@ grid1 = [
     ["1", "1", "0", "0", "0"],
     ["0", "0", "0", "0", "0"],
 ]
-print(numIslands(grid1))  # 期望输出：1
+print(numIsIsland(grid1))  # 期望输出：1
 
 grid2 = [
     ["1", "1", "0", "0", "0"],
@@ -75,4 +75,4 @@ grid2 = [
     ["0", "0", "1", "0", "0"],
     ["0", "0", "0", "1", "1"],
 ]
-print(numIslands(grid2))  # 期望输出：3
+print(numIsIsland(grid2))  # 期望输出：3

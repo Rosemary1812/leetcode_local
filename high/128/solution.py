@@ -14,18 +14,16 @@
 # 解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
 #
 # ---------------------------------------------------------
-def longest(nums):
-    st = set(nums)  # 把 nums 转成哈希集合
+def longest(n):
+    st = set(n)
     ans = 0
-    for x in st:  # 遍历哈希集合
-        if x - 1 in st:  # 如果 x 不是序列的起点，直接跳过
+    for x in st:
+        if x - 1 in st:
             continue
-        # x 是序列的起点
         y = x + 1
-        while y in st:  # 不断查找下一个数是否在哈希集合中
+        while y in st:
             y += 1
-        # 循环结束后，y-1 是最后一个在哈希集合中的数
-        ans = max(ans, y - x)  # 从 x 到 y-1 一共 y-x 个数
+        ans = max(ans, y - x)
     return ans
 
 

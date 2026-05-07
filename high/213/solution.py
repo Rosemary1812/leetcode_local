@@ -22,6 +22,7 @@
 # 输出：3
 #
 # ---------------------------------------------------------
+#
 def rob(nums):
     f0 = f1 = 0
     for x in nums:
@@ -29,14 +30,13 @@ def rob(nums):
     return f1
 
 
-# 环形主要区分2种情况 0偷 0不偷
-def robfinal(nums):
+def cir(nums):
     n = len(nums)
     if n == 1:
         return nums[0]
     return max(nums[0] + rob(nums[2:-1]), rob(nums[1:]))
 
 
-print(robfinal([2, 3, 2]))
-print(robfinal([1, 2, 3, 1]))
-print(robfinal([1, 2, 3]))
+print(cir([2, 3, 2]))
+print(cir([1, 2, 3, 1]))
+print(cir([1, 2, 3]))

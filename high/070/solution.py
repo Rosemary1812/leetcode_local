@@ -23,12 +23,14 @@
 # 3. 2 阶 + 1 阶
 #
 # ---------------------------------------------------------
-def stair(n):
+#
+def stairs(i):
     pre, cur = 1, 1
-    for _ in range(2, n + 1):
+    for _ in range(2, i + 1):
         pre, cur = cur, pre + cur
     return cur
 
 
-print(stair(2))
-print(stair(392))
+print(stairs(1))
+print(stairs(6))
+print(stairs(4))

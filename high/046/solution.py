@@ -20,8 +20,8 @@
 #
 # ---------------------------------------------------------
 def premute(nums):
-    res = []
     path = []
+    res = []
     used = [False] * len(nums)
 
     def back():

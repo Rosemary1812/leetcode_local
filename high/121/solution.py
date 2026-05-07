@@ -26,12 +26,24 @@
 # ---------------------------------------------------------
 
 
+# def maxProfit(prices):
+#     ans = 0
+#     min_price = prices[0]
+#     for p in prices:
+#         ans = max(ans, p - min_price)
+#         min_price = min(min_price, p)
+#     return ans
+
+
+# print(maxProfit([7, 1, 5, 3, 6, 4]))
+
+
 def maxProfit(prices):
     ans = 0
-    min_price = prices[0]
+    minP = prices[0]
     for p in prices:
-        ans = max(ans, p - min_price)
-        min_price = min(min_price, p)
+        ans = max(ans, p - minP)
+        minP = min(minP, p)
     return ans
 
 

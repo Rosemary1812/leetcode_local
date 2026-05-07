@@ -18,24 +18,19 @@
 # 你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。
 #
 # ---------------------------------------------------------
-
 from random import randint
 
 
-def partition(nums, left, right):
+def par(nums, left, right):
     i = randint(left, right)
-    # randint(left, right) 是从 [left, right]
-    #   范围内随机取一个整数，赋给 i，然后用 nums[i] 作为 pivot。
     pivot = nums[i]
     nums[i], nums[left] = nums[left], nums[i]
-
     i, j = left + 1, right
     while True:
         while i <= j and nums[i] < pivot:
             i += 1
         while i <= j and nums[j] > pivot:
             j -= 1
-
         if i >= j:
             break
         nums[i], nums[j] = nums[j], nums[i]
@@ -45,12 +40,12 @@ def partition(nums, left, right):
     return j
 
 
-def findKthLargest(nums, k):
+def findKLargest(nums, k):
     n = len(nums)
     target_index = n - k
     left, right = 0, n - 1
     while True:
-        i = partition(nums, left, right)
+        i = par(nums, left, right)
         if i == target_index:
             return nums[i]
         if i > target_index:
@@ -59,7 +54,7 @@ def findKthLargest(nums, k):
             left = i + 1
 
 
-print(findKthLargest([3, 2, 1, 5, 6, 4], 2))
+print(findKLargest([3, 2, 1, 5, 6, 4], 2))
 # ● 215. 数组中的第K个最大元素 — 快速选择算法详解
 
 #   核心思路

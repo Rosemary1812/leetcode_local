@@ -39,7 +39,6 @@
 #
 # ---------------------------------------------------------
 
-
 from collections import deque
 
 
@@ -51,12 +50,12 @@ def max_window(nums, k):
         while q and nums[q[-1]] <= x:
             q.pop()
         q.append(i)
+
         left = i - k + 1
         if q[0] < left:
             q.popleft()
         if left >= 0:
             ans[left] = nums[q[0]]
-    return ans
 
 
 print(max_window([1, 3, -1, -3, 5, 3, 6, 7], 3))

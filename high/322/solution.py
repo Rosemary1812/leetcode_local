@@ -42,7 +42,7 @@
 from math import inf
 
 
-def coinChange(coins, amount):
+def change(coins, amount):
     f = [0] + [inf] * amount
     for x in coins:
         for c in range(x, amount + 1):
@@ -51,6 +51,5 @@ def coinChange(coins, amount):
     return ans if ans != inf else -1
 
 
-print(coinChange([1], 0))
-print(coinChange([1], 1))
-print(coinChange([1], 2))
+print(change([1, 2, 5], 11))
+print(change([2], 3))
