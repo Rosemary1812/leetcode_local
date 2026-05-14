@@ -30,17 +30,19 @@
 #         f[i] += 1
 #     return max(f)
 
-from bisect import bisect_left
+  from bisect import bisect_left
 
-def lengthOfLIS(nums):
-  d=[]
-  for x in nums:
-    i=bisect_left(d,x)
-    if i==len(d)
-      d.append(x)
-    else:
-      d[i]=x
-  return len(d)
+  def lengthOfLIS(nums):
+      d = []
+      for x in nums:
+          i = bisect_left(d, x)  # 找第一个 >= x 的位置
+          if i == len(d):
+              d.append(x)        # x 比所有元素都大，追加
+          else:
+              d[i] = x           # 替换，保持末尾尽量小
+      return len(d)
+
+
 print(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))  # 4
 print(lengthOfLIS([0, 1, 0, 3, 2, 3]))  # 4
 print(lengthOfLIS([7, 7, 7, 7, 7, 7, 7]))  # 1

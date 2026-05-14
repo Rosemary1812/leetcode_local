@@ -25,24 +25,39 @@
 # ---------------------------------------------------------
 #
 
+# from functools import cache
+
+# def longest(s, t):
+#     n, m = len(s), len(t)
+
+#     @cache
+#     def dfs(i, j):
+#         if i < 0 or j < 0:
+#             return 0
+#         if s[i] == t[j]:
+#             return dfs(i - 1, j - 1) + 1
+#         return max(dfs(i - 1, j), dfs(i, j - 1))
+
+#     return dfs(n - 1, m - 1)
+
+
+# # 测试用例
+# print(longest("abcde", "ace"))  # 3
+# print(longest("abc", "abc"))  # 3
+# print(longest("abc", "def"))  # 0
+
 from functools import cache
 
 
-def longest(s, t):
-    n, m = len(s), len(t)
+def longest(n1, n2):
+    n, m = len(n1), len(n2)
 
     @cache
     def dfs(i, j):
         if i < 0 or j < 0:
             return 0
-        if s[i] == t[j]:
+        if n1[i] == n2[j]:
             return dfs(i - 1, j - 1) + 1
         return max(dfs(i - 1, j), dfs(i, j - 1))
 
     return dfs(n - 1, m - 1)
-
-
-# 测试用例
-print(longest("abcde", "ace"))  # 3
-print(longest("abc", "abc"))  # 3
-print(longest("abc", "def"))  # 0

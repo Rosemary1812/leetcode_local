@@ -27,10 +27,10 @@ def parse_problem_header(file_path: Path) -> dict:
     result = {"title_cn": "", "difficulty": ""}
     for line in lines:
         line = line.strip()
-        if not line or line.startswith("#"[:1] if line.startswith("#") else False):
+        if not line or line.startswith("#") or line.startswith("//"):
             stripped = line.lstrip("#").lstrip("/").lstrip()
             if stripped.startswith("==="):
-                m = re.match(r"===\s*(\d+)\.\s*(.+?)\s*===", stripped)
+                m = re.match(r"===+\s*(\d+)\.\s*(.+?)\s*===+", stripped)
                 if m:
                     result["id"] = int(m.group(1))
                     result["title_cn"] = m.group(2).strip()
@@ -42,11 +42,12 @@ def parse_problem_header(file_path: Path) -> dict:
 
 
 def is_completed(file_path: Path) -> bool:
-    """判断 solution 文件是否已完成（非空、非 TODO、非 pass）"""
+    """判断 solution 文件是否已完成。标准：有实际实现（非 placeholder）。"""
     try:
         content = file_path.read_text(encoding="utf-8")
     except Exception:
         return False
+
     # 去掉头部注释
     in_header = True
     code_lines = []
@@ -58,14 +59,27 @@ def is_completed(file_path: Path) -> bool:
                 code_lines.append(stripped)
         else:
             code_lines.append(stripped)
-    code = "\n".join(code_lines)
-    # 检查是否有非 TODO 的实际代码
-    if not code.strip():
+
+    # 过滤掉头部行（class / function 定义本身）
+    body_lines = [l for l in code_lines if not (l.startswith("class ") or l.startswith("function ") or l.startswith("def ") or l.startswith("async def "))]
+    # 过滤掉空行和纯注释
+    meaningful = [l for l in body_lines if l.strip() and not l.strip().startswith("//") and not l.strip().startswith("#")]
+
+    # 如果没有任何实质性代码行，则未完成
+    if not meaningful:
         return False
-    # 移除纯注释行和空行
-    actual = [l for l in code.splitlines()
-              if l.strip() and not l.strip().startswith("//") and not l.strip().startswith("#")]
-    return bool(actual)
+
+    # 过滤掉空行、纯注释、纯括号
+    clean = [l for l in meaningful if l not in ("}", "]", ")")]
+    if not clean:
+        return False
+
+    # 如果只有 placeholder，则未完成
+    placeholders = ("raise NotImplementedError", 'throw new Error("TODO', "pass", "return None", "return []")
+    if all(any(p in l for p in placeholders) for l in clean):
+        return False
+
+    return True
 
 
 def scan_directory(base_dir: Path, section: str) -> list[dict]:
@@ -77,11 +91,12 @@ def scan_directory(base_dir: Path, section: str) -> list[dict]:
     for folder in sorted(base_dir.iterdir()):
         if not folder.is_dir():
             continue
-        # 匹配 3 位数字开头的文件夹
-        if not re.match(r"^\d{3}$", folder.name):
+        # 匹配数字开头的文件夹（可能有 !、todo 等后缀）
+        if not re.match(r"^\d+", folder.name):
             continue
 
-        pid = int(folder.name)
+        num_match = re.match(r"^(\d+)", folder.name)
+        pid = int(num_match.group(1))
         info = parse_problem_header(folder / "solution.py")
         info["id"] = pid
         info["folder"] = folder.name
@@ -100,8 +115,11 @@ def main():
     root = get_project_root()
     high_dir = root / "high"
 
+    codetop_dir = root / "codetop"
+
     all_problems = []
     all_problems += scan_directory(high_dir, "high")
+    all_problems += scan_directory(codetop_dir, "codetop")
 
     if not all_problems:
         print("尚未创建任何题目，请先运行:")
@@ -118,17 +136,18 @@ def main():
     all_problems.sort(key=lambda p: (diff_map.get(p.get("difficulty", ""), 1), p["id"]))
 
     print()
-    print(f"{'编号':<5} {'题目名称':<30} {'难度':<6} {'状态'}")
-    print("-" * 55)
+    print(f"{'编号':<5} {'题目名称':<30} {'难度':<6} {'状态':<10} {'分类'}")
+    print("-" * 65)
 
     for p in all_problems:
         pid = f"{p['id']:>3}"
         title = (p.get("title_cn") or "未知").ljust(30)
         diff = (p.get("difficulty") or "未知").ljust(6)
         status = "[OK]" if p["completed"] else "[--]"
-        print(f"{pid:<5} {title:<30} {diff:<6} {status}")
+        section = p.get("section", "")
+        print(f"{pid:<5} {title:<30} {diff:<6} {status:<10} {section}")
 
-    print("-" * 55)
+    print("-" * 65)
     print(f"已完成: {completed} / {total}")
 
 

@@ -18,6 +18,7 @@
 # 输出：[]
 #
 # ---------------------------------------------------------
+from collections import deque
 
 
 class TreeNode:
@@ -27,26 +28,7 @@ class TreeNode:
         self.right = right
 
 
-def levelOrderBottom(root):
-    if root is None:
-        return []
-    ans = []
-    cur = [root]
-    while cur:
-        nxt = []
-        val = []
-        for node in cur:
-            val.append(node.val)
-            if node.left:
-                nxt.append(node.left)
-            if node.right:
-                nxt.append(node.right)
-        cur = nxt
-        ans.append(val)
-    return ans[::-1]
-
-
-def build_tree(arr):
+def buildTree(arr):
     if not arr:
         return None
     root = TreeNode(arr[0])
@@ -65,4 +47,25 @@ def build_tree(arr):
     return root
 
 
-print(levelOrderBottom(build_tree([3, 9, 20, None, None, 15, 7])))
+def level_order(root):
+    if not root:
+        return []
+    res = []
+
+    queue = deque([root])
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        res.append(level)
+    return res[::-1]
+
+
+arr = [3, 9, 20, None, None, 15, 7]
+root = buildTree(arr)
+print(level_order(root))  # [[15, 7], [9, 20], [3]]

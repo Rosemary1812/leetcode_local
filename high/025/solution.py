@@ -31,37 +31,62 @@ class ListNode:
         self.next = next
 
 
+# def reverseKGroup(head, k):
+#     """反转链表每 k 个节点一组"""
+#     # 统计链表长度
+#     n = 0
+#     cur = head
+#     while cur:
+#         n += 1
+#         cur = cur.next
+
+#     dummy = ListNode(0, head)
+#     p0 = dummy
+#     cur = head
+
+#     while n >= k:
+#         pre = None
+
+#         # 反转 k 个节点
+#         for _ in range(k):
+#             nxt = cur.next
+#             cur.next = pre
+#             pre = cur
+#             cur = nxt
+
+#         # 连接反转后的链表
+#         tail = p0.next
+#         tail.next = cur
+#         p0.next = pre
+#         p0 = tail
+
+#         n -= k
+
+#     return dummy.next
+
+
 def reverseKGroup(head, k):
-    """反转链表每 k 个节点一组"""
-    # 统计链表长度
     n = 0
     cur = head
     while cur:
         n += 1
         cur = cur.next
-
     dummy = ListNode(0, head)
     p0 = dummy
     cur = head
-
     while n >= k:
         pre = None
 
-        # 反转 k 个节点
         for _ in range(k):
             nxt = cur.next
             cur.next = pre
             pre = cur
             cur = nxt
-
-        # 连接反转后的链表
         tail = p0.next
         tail.next = cur
         p0.next = pre
         p0 = tail
-
         n -= k
-
     return dummy.next
 
 

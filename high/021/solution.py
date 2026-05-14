@@ -34,25 +34,24 @@ def merge(l1, l2):
     return dummy.next
 
 
-def buildList(arr):
+def list_to_array(arr):
     dummy = ListNode(0)
     cur = dummy
     for val in arr:
         cur.next = ListNode(val)
         cur = cur.next
-    return dummy.next
+        return dummy.next
 
 
-def ListToArray(head):
+def build_list(head):
     result = []
     while head:
         result.append(head.val)
-        head = head.next
     return result
 
 
-print(ListToArray(merge(buildList([1, 2, 4]), buildList([1, 3, 4]))))
-print(ListToArray(merge(buildList([]), buildList([]))))
-print(ListToArray(merge(buildList([]), buildList([0]))))
-print(ListToArray(merge(buildList([1]), buildList([2]))))
-print(ListToArray(merge(buildList([1, 1, 1]), buildList([1, 1, 1]))))
+print(list_to_array(merge(build_list([1, 2, 4]), build_list([1, 3, 4]))))
+print(list_to_array(merge(build_list([]), build_list([]))))
+print(list_to_array(merge(build_list([]), build_list([0]))))
+print(list_to_array(merge(build_list([1]), build_list([2]))))
+print(list_to_array(merge(build_list([1, 1, 1]), build_list([1, 1, 1]))))
