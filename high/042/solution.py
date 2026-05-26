@@ -19,21 +19,23 @@
 # ---------------------------------------------------------
 
 
-def trap(heights):
+def trap(height):
     ans = 0
-    left, right = 0, len(heights) - 1
-    premax = sufmax = 0
+    left, right = 0, len(height) - 1
+    pre_max = suf_max = 0
     while left < right:
-        premax = max(premax, heights[left])
-        sufmax = max(sufmax, heights[right])
+        pre_max = max(pre_max, height[left])
+        suf_max = max(suf_max, height[right])
 
-        if premax < sufmax:
-            ans += premax - heights[left]
+        if pre_max < suf_max:
+            ans += pre_max - height[left]
             left += 1
         else:
-            ans += sufmax - heights[right]
+            ans += suf_max - height[right]
             right -= 1
     return ans
 
 
 print(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))
+print(trap([4, 2, 0, 3, 2, 5]))
+print(trap([3, 0, 0, 2, 0, 4]))

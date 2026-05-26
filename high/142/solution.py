@@ -34,28 +34,17 @@
 # pos 的值为 -1 或者链表中的一个有效索引
 # ---------------------------------------------------------
 
-# class Solution:
-#     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-#         slow = fast = head
-#         while fast and fast.next:
-#             slow = slow.next
-#             fast = fast.next.next
-#             if fast is slow:  # 相遇
-#                 while slow is not head:  # 再走 a 步
-#                     slow = slow.next
-#                     head = head.next
-#                 return slow
-#         return None
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
 
-def build_list(vals, pos):
-    if not vals:
+def build_cy_list(values, pos):
+    if not values:
         return None
-    nodes = [ListNode(v) for v in vals]
+    nodes = [ListNode(v) for v in values]
     for i in range(len(nodes) - 1):
         nodes[i].next = nodes[i + 1]
     if pos != -1:
@@ -64,18 +53,17 @@ def build_list(vals, pos):
 
 
 def detectCycle(head):
-    slow = fast = head
+    fast = slow = head
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
         if fast is slow:
-            while slow != head:
-                slow = slow.next
-                head = head.next
-            return slow
+            fast = fast.next
+            slow = slow.next
+        return slow
     return None
 
 
-print(detectCycle(build_list([1, 2], 0)))
-print(detectCycle(build_list([1], -1)))
-print(detectCycle(build_list([3, 2, 0, -4], 1)))
+print(detectCycle(build_cy_list([1, 2], 0)))
+print(detectCycle(build_cy_list([1], -1)))
+print(detectCycle(build_cy_list([3, 2, 0, -4], 1)))

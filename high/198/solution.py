@@ -29,13 +29,14 @@
 # 0 <= nums[i] <= 400
 #
 # ---------------------------------------------------------
+
+
 def rob(nums):
     f1 = f0 = 0
     for x in nums:
-        f0, f1 = f1, max(f0 + x, f1)
+        f0, f1 = f1, max(f1, f0 + x)
     return f1
 
 
 print(rob([1, 2, 3, 1]))
 print(rob([2, 7, 9, 3, 1]))
-print(rob([2, 1, 1, 2]))

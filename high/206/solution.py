@@ -13,10 +13,14 @@
 # 你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
 #
 # ---------------------------------------------------------
+
+from contextlib import nullcontext
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
-        self.val = val
         self.next = next
+        self.val = val
 
 
 def build_list(arr):
@@ -28,16 +32,17 @@ def build_list(arr):
     return dummy.next
 
 
-def list_to_arr(node):
-    arr = []
-    while node:
-        arr.append(node.val)
-        node = node.next
-    return arr
+def list_to_array(head):
+    res = []
+    while head:
+        res.append(head.val)
+        head = head.next
+    return res
 
 
-def reverse(head):
-    pre, cur = None, head
+def reverseList(head):
+    pre = None
+    cur = head
     while cur:
         nxt = cur.next
         cur.next = pre
@@ -46,4 +51,20 @@ def reverse(head):
     return pre
 
 
-print(list_to_arr(reverse(build_list([1, 2, 3, 4, 5]))))
+print(
+    list_to_array(
+        reverseList(
+            build_list(
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                ]
+            )
+        )
+    )
+)
+print(list_to_array(reverseList(build_list([1, 2]))))
+print(list_to_array(reverseList(build_list([]))))

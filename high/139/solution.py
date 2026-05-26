@@ -31,7 +31,7 @@
 from functools import cache
 
 
-def wordbreak(n, wordDict):
+def wordbreak(s, wordDict):
     max_len = max(map(len, wordDict))
     words = set(wordDict)
 
@@ -39,12 +39,12 @@ def wordbreak(n, wordDict):
     def dfs(i):
         if i == 0:
             return True
-        for j in range(i - 1, max(-1, i - 1 - max_len, -1), -1):
-            if n[j:i] in words and dfs(j):
+        for j in range(i - 1, max(i - max_len - 1, -1), -1):
+            if s[j:i] in words and dfs(j):
                 return True
         return False
 
-    return dfs(len(n))
+    return dfs(len(s))
 
 
 print(wordbreak("leetcode", ["leet", "code"]))

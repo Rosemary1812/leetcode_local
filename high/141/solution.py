@@ -47,9 +47,11 @@ def has_cycle(head):
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
-        if slow == fast:
+        if fast == slow:
             return True
     return False
 
 
 print(has_cycle(build_cy_list([3, 2, 0, -4], 1)))
+print(has_cycle(build_cy_list([1, 2], 0)))
+print(has_cycle(build_cy_list([1], -1)))

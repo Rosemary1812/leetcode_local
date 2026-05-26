@@ -37,17 +37,22 @@
 #     return f[-1]
 
 
-def minDistance(s, t):
-    n, m = len(s), len(t)
-    f = [[0] * (m + 1) for _ in range(n + 1)]
-    for i in range(n + 1):
-        f[i][0] = i
-    for j in range(m + 1):
-        f[0][j] = j
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if s[i - 1] == t[j - 1]:
-                f[i][j] = f[i - 1][j - 1]
-            else:
-                f[i][j] = min(f[i - 1][j - 1], f[i][j - 1], f[i - 1][j]) + 1
-    return f[n][m]
+def minDis(s,t):
+  n=len(s)
+  m=len(t)
+  f=[[0]*(m+1)for _ in range(n+1)]
+  for i in range(n+1):
+    f[i][0]=i
+  for j in range(m+1):
+    f[0][j]=j
+  for i in range(n+1):
+    for j in range(m+1):
+      if s[i-1]==t[j-1]
+        f[i][j]=f[i-1][j-1]
+      else:
+        f[i][j]=min(f[i-1][j],f[j-1][i],f[i-1][j-1])+1
+  return f[n][m]
+
+w1 = "intention"
+w2 = "execution"
+print(minDis(w1, w2))

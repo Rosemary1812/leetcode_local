@@ -36,23 +36,23 @@ def print_list(head):
     print(vals)
 
 
-def reorder_list(head):
+def reorder(head):
     if not head or not head.next:
         return
-    # 1. 找中点
-    slow, fast = head, head
+
+    slow = fast = head
     while fast.next and fast.next.next:
-        slow = slow.next
         fast = fast.next.next
-    # 2. 反转后半段
-    pre, cur = None, slow.next
+        slow = slow.next
+
+    pre = None
+    cur = slow.next
     slow.next = None
     while cur:
         nxt = cur.next
         cur.next = pre
         pre = cur
         cur = nxt
-    # 3. 交替合并
     first, second = head, pre
     while second:
         nxt1, nxt2 = first.next, second.next
@@ -62,10 +62,10 @@ def reorder_list(head):
         second = nxt2
 
 
-head = build_list([1, 2, 3, 4])
-reorder_list(head)
-print_list(head)
+head1 = build_list([1, 2, 3, 4])
+reorder(head1)
+print_list(head1)  # [1, 4, 2, 3]
 
 head = build_list([1, 2, 3, 4, 5])
-reorder_list(head)
-print_list(head)
+reorder(head)
+print_list(head)  # [1, 5, 2, 4, 3]

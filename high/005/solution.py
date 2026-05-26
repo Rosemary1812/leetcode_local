@@ -39,26 +39,25 @@
 #     return longest
 
 
-# print(longestPalindrome("babad"))
-# print(longestPalindrome("cbbd"))
-
-
-def longestPalindrome(s):
+def longestRe(s):
     longest = ""
 
-    def expand(left, right):
-        while left >= 0 and right < len(s) and s[right] == s[left]:
-            right += 1
+    def is_re(left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
             left -= 1
+            right += 1
         return s[left + 1 : right]
 
-    for x in range(len(s)):
-        even = expand(x, x + 1)
-        odd = expand(x, x)
-        longest = max(even, odd, longest, key=len)
+    for i in range(len(s)):
+        odd = is_re(i, i)
+        even = is_re(i, i + 1)
+        longest = max(odd, even, longest, key=len)
     return longest
 
 
-print(longestPalindrome("babad"))
-print(longestPalindrome("brehfiuewh"))
-print(longestPalindrome("cbdd"))
+print(longestRe("babad"))
+print(longestRe("cbbd"))
+
+# 语法： s[start:end]
+# - 包含 start 索引
+# - 不包含 end 索引（左闭右开）

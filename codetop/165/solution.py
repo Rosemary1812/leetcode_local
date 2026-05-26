@@ -13,9 +13,9 @@
 # 空间复杂度：O(n)，分割后的列表。
 
 
-def compare_version(version1, version2):
-    v1 = list(map(int, version1.split(".")))
-    v2 = list(map(int, version2.split(".")))
+def compare_version(v1, v2):
+    v1 = list(map(int, v1.split(".")))
+    v2 = list(map(int, v2.split(".")))
     for i in range(max(len(v1), len(v2))):
         a = v1[i] if i < len(v1) else 0
         b = v2[i] if i < len(v2) else 0
