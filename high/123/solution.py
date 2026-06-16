@@ -38,9 +38,9 @@ def maxProfit(prices):
     return f[-1][0]
 
 
-print(maxProfit([3, 3, 5, 0, 0, 3, 1, 4]))
 print(maxProfit([1, 2, 3, 4, 5]))
 print(maxProfit([7, 6, 4, 3, 1]))
+
 
 # 20260503Notes:
 # 01的分别是 当日是否买入

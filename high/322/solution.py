@@ -7,26 +7,18 @@
 #
 # 你可以认为每种硬币的数量是无限的。
 #
-#
-#
-# 示例 1：
-#
 # 输入：coins = [1, 2, 5], amount = 11
 # 输出：3
 # 解释：11 = 5 + 5 + 1
-# 示例 2：
 #
 # 输入：coins = [2], amount = 3
 # 输出：-1
-# 示例 3：
 #
 # 输入：coins = [1], amount = 0
 # 输出：0
-# 示例 4：
 #
 # 输入：coins = [1], amount = 1
 # 输出：1
-# 示例 5：
 #
 # 输入：coins = [1], amount = 2
 # 输出：2
@@ -37,12 +29,13 @@
 # 1 <= coins.length <= 12
 # 1 <= coins[i] <= 231 - 1
 # 0 <= amount <= 104
-#
 # ---------------------------------------------------------
+#
+
 from math import inf
 
 
-def change(coins, amount):
+def coinChange(coins, amount):
     f = [0] + [inf] * amount
     for x in coins:
         for c in range(x, amount + 1):
@@ -51,5 +44,6 @@ def change(coins, amount):
     return ans if ans != inf else -1
 
 
-print(change([1, 2, 5], 11))
-print(change([2], 3))
+print(coinChange([1, 2, 5], 11))
+print(coinChange([2], 3))
+print(coinChange([1], 0))

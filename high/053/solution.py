@@ -25,7 +25,3 @@ def maxSum(nums):
         ans = max(ans, PreSum - minPreSum)
         minPreSum = min(minPreSum, PreSum)
     return ans
-
-
-print(maxSum([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
-print(maxSum([5, 4, -1, 7, 8]))
